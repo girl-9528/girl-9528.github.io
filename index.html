@@ -1,125 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>主人的影视殿堂</title>
+    <title>龙影阁</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: black;
+            color: gold;
+            text-align: center;
+        }
 
-<style>
-body {
-    margin: 0;
-    font-family: "Microsoft YaHei", sans-serif;
-    background: black;
-    color: gold;
-    overflow-x: hidden;
-}
+        /* 背景视频 */
+        video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+        }
 
-/* 龙背景 */
-body::before {
-    content: "";
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: url('https://images.unsplash.com/photo-1608889175112-7a1d0a5e8b2f?auto=format&fit=crop&w=1500&q=80') no-repeat center/cover;
-    opacity: 0.25;
-    animation: moveBg 20s linear infinite;
-    z-index: -1;
-}
+        h1 {
+            margin-top: 50px;
+            font-size: 50px;
+        }
 
-@keyframes moveBg {
-    0% {transform: scale(1) translateY(0);}
-    50% {transform: scale(1.1) translateY(-20px);}
-    100% {transform: scale(1) translateY(0);}
-}
+        .movies {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
-header {
-    text-align: center;
-    padding: 40px;
-    font-size: 36px;
-    font-weight: bold;
-    letter-spacing: 5px;
-    text-shadow: 0 0 20px gold;
-}
+        .card {
+            width: 200px;
+            margin: 20px;
+            background: rgba(0,0,0,0.7);
+            border: 1px solid gold;
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
-.container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
-    padding: 40px;
-}
+        .card img {
+            width: 100%;
+        }
 
-/* 电影卡片 */
-.card {
-    width: 220px;
-    background: rgba(0,0,0,0.7);
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 0 20px gold;
-    transition: 0.3s;
-}
-
-.card:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 40px gold;
-}
-
-.card img {
-    width: 100%;
-}
-
-.card h3 {
-    padding: 10px;
-}
-
-/* 按钮 */
-button {
-    background: gold;
-    border: none;
-    padding: 10px;
-    width: 100%;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-button:hover {
-    background: orange;
-}
-
-footer {
-    text-align: center;
-    padding: 20px;
-    opacity: 0.6;
-}
-</style>
+        button {
+            width: 100%;
+            padding: 10px;
+            background: gold;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
-
 <body>
 
-<header>🐉 主人的影视殿堂 🐉</header>
+<video autoplay muted loop>
+    <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+</video>
 
-<div class="container">
+<h1>🐉 龙影阁 🎬</h1>
 
-<div class="card">
-<img src="https://picsum.photos/300/400?random=1">
-<h3>神秘之影</h3>
-<button onclick="alert('播放功能以后加 😏')">播放</button>
-</div>
+<div class="movies">
 
-<div class="card">
-<img src="https://picsum.photos/300/400?random=2">
-<h3>龙之崛起</h3>
-<button onclick="alert('播放功能以后加 😏')">播放</button>
-</div>
+    <div class="card">
+        <img src="https://picsum.photos/200/300?1">
+        <button onclick="play()">播放</button>
+    </div>
 
-<div class="card">
-<img src="https://picsum.photos/300/400?random=3">
-<h3>暗夜猎手</h3>
-<button onclick="alert('播放功能以后加 😏')">播放</button>
-</div>
+    <div class="card">
+        <img src="https://picsum.photos/200/300?2">
+        <button onclick="play()">播放</button>
+    </div>
 
 </div>
 
-<footer>© 主人的专属影院</footer>
+<script>
+function play(){
+    alert("这里以后可以接你的服务器电影 😏");
+}
+</script>
 
 </body>
 </html>
