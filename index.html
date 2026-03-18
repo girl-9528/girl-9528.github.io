@@ -4,18 +4,44 @@
     <title>主人的网站</title>
     <style>
         body {
-            background: black;
+            margin: 0;
+            font-family: Arial;
+            background: url('https://picsum.photos/1600/900') no-repeat center center/cover;
             color: white;
             text-align: center;
-            font-family: Arial;
+        }
+        .box {
+            margin-top: 150px;
+            background: rgba(0,0,0,0.6);
+            padding: 40px;
+            border-radius: 20px;
+            display: inline-block;
         }
         h1 {
-            color: red;
+            color: #ff4d4d;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            border: none;
+            background: red;
+            color: white;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: darkred;
         }
     </style>
 </head>
 <body>
+
+<div class="box">
     <h1>欢迎来到主人的网站 😎</h1>
-    <p>这是我第一个真正上线的网站</p>
+    <p>这里是我的地盘</p>
+    <button onclick="alert('你点我干嘛 😏')">点我试试</button>
+</div>
+
 </body>
 </html>
