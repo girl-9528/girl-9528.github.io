@@ -1,520 +1,426 @@
-="zh-CN">
-body {
-font-family: 'Ma Shan Zheng', 'Microsoft YaHei', sans-serif;
-background: #000000;
-color: #ffffff;
-overflow-x: hidden;
-position: relative;
-}
-/* 鎏金中国龙背景（静态高清图 + 动态特效） */
-.dragon-bg {
-position: fixed;
-top: 0;
-left: 0;
-width: 100vw;
-height: 100vh;
-z-index: -2;
-background: url ('https://picsum.photos/id/1076/1920/1080') center/cover no-repeat;
-filter: brightness(0.4);
-}
-/* 动态鎏金叠加层 */
-.golden-overlay {
-position: fixed;
-top: 0;
-left: 0;
-width: 100vw;
-height: 100vh;
-z-index: -1;
-background:
-radial-gradient (circle at var (--x, 30%) var (--y, 20%), rgba (255,215,0,0.28), transparent 65%),
-radial-gradient (circle at var (--x2, 70%) var (--y2, 80%), rgba (202,138,4,0.22), transparent 65%),
-linear-gradient (to bottom, rgba (0,0,0,0.88), rgba (0,0,0,0.95));
-pointer-events: none;
-animation: goldenPulse 8s infinite alternate;
-}
-@keyframes goldenPulse {
-0% {
---x: 30%; --y: 20%;
---x2: 70%; --y2: 80%;
-}
-50% {
---x: 40%; --y: 30%;
---x2: 60%; --y2: 70%;
-}
-100% {
---x: 25%; --y: 25%;
---x2: 75%; --y2: 75%;
-}
-}
-/* 头部区域 */
-.header {
-padding: 25px 0;
-position: relative;
-border-bottom: 1px solid rgba (255,215,0,0.25);
-backdrop-filter: blur (8px);
-background: rgba (0,0,0,0.5);
-}
-.logo-container {
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 12px;
-margin-bottom: 25px;
-}
-.logo {
-font-size: 3.8rem;
-font-weight: 900;
-background: linear-gradient(120deg, #ffd700, #f5c518, #e6b800, #ffed4b);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-text-shadow: 0 0 18px rgba(255,215,0,0.6), 0 0 35px rgba(255,215,0,0.3);
-letter-spacing: 6px;
-}
-.logo-dragon {
-font-size: 3.2rem;
-color: #ffd700;
-text-shadow: 0 0 12px rgba(255,215,0,0.5);
-animation: dragonBreath 2.5s infinite alternate;
-}
-@keyframes dragonBreath {
-0% { transform: scale(1); opacity: 0.85; }
-100% { transform: scale(1.08); opacity: 1; }
-}
-/* 导航菜单 */
-.nav-menu {
-display: flex;
-justify-content: center;
-gap: 50px;
-flex-wrap: wrap;
-list-style: none;
-max-width: 1100px;
-margin: 0 auto;
-}
-.nav-link {
-color: #ffffff;
-text-decoration: none;
-font-size: 1.4rem;
-padding: 10px 22px;
-border-radius: 50px;
-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-display: flex;
-align-items: center;
-gap: 8px;
-}
-.nav-link i {
-font-size: 1.2rem;
-transition: transform 0.3s ease;
-}
-.nav-link:hover {
-color: #ffd700;
-background: rgba(255,215,0,0.18);
-box-shadow: 0 0 12px rgba(255,215,0,0.25);
-}
-.nav-link:hover i {
-transform: scale(1.15) rotate(8deg);
-}
-.nav-link::after {
-content: '';
-position: absolute;
-bottom: 0;
-left: 50%;
-width: 0;
-height: 3px;
-background: linear-gradient(90deg, #ffd700, #f0c808);
-border-radius: 3px;
-transition: width 0.3s ease, left 0.3s ease;
-}
-.nav-link:hover::after {
-width: 75%;
-left: 12.5%;
-}
-/* 主内容区 */
-.main-content {
-max-width: 1300px;
-margin: 50px auto;
-padding: 0 25px;
-}
-/* 模块样式 */
-.content-module {
-margin-bottom: 80px;
-position: relative;
-}
-.module-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 30px;
-padding-bottom: 12px;
-border-bottom: 2px solid rgba(255,215,0,0.3);
-}
-.module-title {
-font-size: 2rem;
-color: #ffd700;
-display: flex;
-align-items: center;
-gap: 12px;
-}
-.module-title i {
-font-size: 1.8rem;
-text-shadow: 0 0 8px rgba(255,215,0,0.5);
-}
-.see-more {
-color: #ffd700;
-text-decoration: none;
-font-size: 1rem;
-padding: 7px 18px;
-border: 1px solid rgba(255,215,0,0.5);
-border-radius: 50px;
-transition: all 0.3s ease;
-}
-.see-more:hover {
-background: rgba(255,215,0,0.12);
-box-shadow: 0 0 8px rgba(255,215,0,0.3);
-border-color: #ffd700;
-}
-/* 视频卡片网格 */
-.card-grid {
-display: grid;
-grid-template-columns: repeat (auto-fill, minmax (260px, 1fr));
-gap: 35px;
-}
-.video-card {
-background: rgba(0,0,0,0.65);
-border-radius: 12px;
-overflow: hidden;
-transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-border: 1px solid rgba(255,215,0,0.2);
-position: relative;
-backdrop-filter: blur(4px);
-}
-.video-card::before {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.85));
-z-index: 1;
-opacity: 0;
-transition: opacity 0.3s ease;
-}
-.video-card:hover {
-transform: translateY(-12px) scale(1.015);
-box-shadow: 0 15px 30px rgba(255,215,0,0.15), 0 0 15px rgba(255,215,0,0.1);
-border-color: #ffd700;
-}
-.video-card:hover::before {
-opacity: 1;
-}
-.card-poster {
-width: 100%;
-height: 360px;
-object-fit: cover;
-transition: transform 0.6s ease;
-}
-.video-card:hover .card-poster {
-transform: scale(1.06);
-}
-.card-overlay {
-position: absolute;
-bottom: 0;
-left: 0;
-width: 100%;
-padding: 20px 15px;
-z-index: 2;
-transition: all 0.3s ease;
-}
-.video-card:hover .card-overlay {
-transform: translateY(-8px);
-}
-.card-badge {
-position: absolute;
-top: 15px;
-left: 15px;
-background: #ffd700;
-color: #000;
-font-size: 0.85rem;
-font-weight: bold;
-padding: 4px 10px;
-border-radius: 50px;
-z-index: 2;
-box-shadow: 0 2px 8px rgba(255,215,0,0.3);
-}
-.card-title {
-font-size: 1.3rem;
-margin-bottom: 8px;
-color: #ffffff;
-text-shadow: 0 2px 8px rgba(0,0,0,0.5);
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-}
-.card-meta {
-display: flex;
-justify-content: space-between;
-align-items: center;
-font-size: 0.85rem;
-color: #cccccc;
-}
-.card-rating {
-display: flex;
-align-items: center;
-gap: 4px;
-color: #ffd700;
-}
-/* 播放按钮悬浮效果 */
-.play-btn {
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate (-50%, -50%) scale (0);
-width: 70px;
-height: 70px;
-background: rgba (255,215,0,0.92);
-border-radius: 50%;
-display: flex;
-justify-content: center;
-align-items: center;
-z-index: 3;
-transition: all 0.3s cubic-bezier (0.175, 0.885, 0.32, 1.275);
-box-shadow: 0 0 15px rgba (255,215,0,0.5);
-}
-.play-btn i {
-font-size: 1.8rem;
-color: #000;
-margin-left: 4px;
-}
-.video-card:hover .play-btn {
-transform: translate(-50%, -50%) scale(1);
-}
-.play-btn:hover {
-transform: translate(-50%, -50%) scale(1.08);
-background: #ffd700;
-box-shadow: 0 0 25px rgba(255,215,0,0.7);
-}
-/* 底部区域 */
-.footer {
-padding: 50px 0 25px;
-border-top: 1px solid rgba (255,215,0,0.2);
-background: rgba (0,0,0,0.7);
-backdrop-filter: blur (8px);
-position: relative;
-}
-.footer-container {
-max-width: 1100px;
-margin: 0 auto;
-padding: 0 25px;
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 25px;
-}
-.footer-logo {
-font-size: 2.2rem;
-background: linear-gradient(120deg, #ffd700, #f5c518);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-text-shadow: 0 0 12px rgba(255,215,0,0.5);
-letter-spacing: 4px;
-}
-.footer-links {
-display: flex;
-gap: 25px;
-list-style: none;
-flex-wrap: wrap;
-justify-content: center;
-}
-.footer-link {
-color: #cccccc;
-text-decoration: none;
-font-size: 1rem;
-transition: all 0.3s ease;
-}
-.footer-link:hover {
-color: #ffd700;
-text-shadow: 0 0 8px rgba(255,215,0,0.3);
-}
-.copyright {
-color: #999999;
-font-size: 0.95rem;
-margin-top: 15px;
-text-align: center;
-line-height: 1.6;
-}
-/* 响应式适配（更精细） */
-@media (max-width: 1200px) {
-.card-grid {
-gap: 30px;
-}
-.nav-menu {
-gap: 40px;
-}
-}
-@media (max-width: 992px) {
-.logo {
-font-size: 3.2rem;
-letter-spacing: 5px;
-}
-.logo-dragon {
-font-size: 2.8rem;
-}
-.card-poster {
-height: 320px;
-}
-}
-@media (max-width: 768px) {
-.logo {
-font-size: 2.6rem;
-letter-spacing: 4px;
-}
-.logo-dragon {
-font-size: 2.4rem;
-}
-.nav-menu {
-gap: 25px;
-}
-.nav-link {
-font-size: 1.2rem;
-padding: 8px 16px;
-}
-.module-title {
-font-size: 1.7rem;
-}
-.card-poster {
-height: 280px;
-}
-.card-grid {
-gap: 22px;
-}
-.footer-logo {
-font-size: 1.8rem;
-}
-}
-@media (max-width: 576px) {
-.logo {
-font-size: 2.2rem;
-letter-spacing: 3px;
-}
-.logo-dragon {
-font-size: 2rem;
-}
-.nav-menu {
-gap: 15px;
-}
-.nav-link {
-font-size: 1rem;
-padding: 7px 12px;
-}
-.module-header {
-flex-direction: column;
-align-items: flex-start;
-gap: 12px;
-}
-.card-poster {
-height: 240px;
-}
-.card-grid {
-gap: 20px;
-}
-}
-@media (max-width: 375px) {
-.logo {
-font-size: 1.9rem;
-letter-spacing: 2px;
-}
-.logo-dragon {
-font-size: 1.7rem;
-}
-.nav-link {
-font-size: 0.9rem;
-padding: 6px 10px;
-}
-.card-poster {
-height: 220px;
-}
-}
-稳定 CDN） -->
-://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
-nav-item position-relative">
-tvplay" class="nav-link">
-内容区域 -->
-card-overlay">
--title"> 黑神话：悟空
-eta">
-2024・动作 / 奇幻 >="card-rating">
--solid fa-star"> 9.8
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伟哥影视 - 极致CG视觉体验</title>
+    <!-- 引入外部样式库 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-video-card">玄幻                    ://picsum.photos/id/1005/600/900"alt=" 完美世界 "class="card-poster">
-class="play-btn">
--solid fa-play">
--overlay">
-video-card">科幻                    ://picsum.photos/id/1025/600/900"alt=" 灵笼 "class="card-poster">
-class="play-btn">
--solid fa-play">
--overlay">
-模块 -->
-id="movie" class="content-module">
--card">
-class="card-badge"> 科幻 picsum.photos/id/1045/600/900"alt=" 流浪地球 3"class="card-poster">
-class="play-btn">
--solid fa-play">
--overlay">
-">
-="card-badge"> 武侠 
--btn">
--card">
-class="card-badge"> 奇幻 picsum.photos/id/1065/600/900"alt=" 白蛇：浮生 "class="card-poster">
-class="play-btn">
--solid fa-play">
--overlay">
-短剧模块 -->
-class="see-more"> 查看全部 -solid fa-angle-right">
-">
-="card-badge"> 修仙 
-">
-="fa-solid fa-play">
-="card-overlay">
-card-title"> 仙尊奶爸：都市逍遥 >
-="card-meta">
-24・修仙 / 都市 ating">7
- card-overlay">
--title"> 龙墓探险：千年秘辛 >
-="card-meta">
-24・探险 / 悬疑 ating">6
-模块 -->
-id="tvplay" class="content-module">
-">
-class="module-title">
--solid fa-tv"> 电视剧专区
-see-more"> 查看全部 
-card-grid">
-video-card">武侠                    ://picsum.photos/id/1145/600/900"alt=" 天龙八部：重制版 "class="card-poster">
--btn">
--->
-="footer">
-确保稳定运行） -->
-// 鼠标移动时鎏金光斑跟随（增强动态感）
-document.addEventListener ('mousemove', (e) => {
-const goldenOverlay = document.querySelector ('.golden-overlay');
-const x = (e.clientX/window.innerWidth) * 100 + '%';
-const y = (e.clientY/window.innerHeight) * 100 + '%';
-goldenOverlay.style.setProperty ('--x', x);
-goldenOverlay.style.setProperty ('--y', y);
-// 反向光斑
-const x2 = (100 - (e.clientX/window.innerWidth) * 100) + '%';
-const y2 = (100 - (e.clientY/window.innerHeight) * 100) + '%';
-goldenOverlay.style.setProperty ('--x2', x2);
-goldenOverlay.style.setProperty ('--y2', y2);
-});
-// 卡片点击播放效果（模拟）
-document.querySelectorAll ('.play-btn').forEach (btn => {
-btn.addEventListener ('click', (e) => {
-e.stopPropagation ();
-const card = btn.closest ('.video-card');
-const title = card.querySelector ('.card-title').textContent;
-alert (正在播放：${title}（实际项目中可替换为视频播放逻辑）);
-});
-});
+        body {
+            font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
 
+        /* 背景层 - 鎏金中国龙CG风格 */
+        .bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)),
+                url('https://picsum.photos/id/1076/1920/1080') center/cover no-repeat; /* 龙纹背景图（替换为更贴合的龙图效果更佳） */
+            background-blend-mode: overlay;
+        }
 
+        /* 鎏金纹理叠加 */
+        .golden-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 30%, rgba(255,215,0,0.15), transparent 70%);
+            pointer-events: none;
+        }
+
+        /* 头部导航 */
+        .header {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,215,0,0.3);
+            position: relative;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            background: linear-gradient(90deg, #ffd700, #f0c808, #e0b800);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(255,215,0,0.5);
+            letter-spacing: 5px;
+        }
+
+        .logo span {
+            font-size: 1.2rem;
+            margin-left: 10px;
+            opacity: 0.8;
+        }
+
+        /* 导航菜单 */
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            list-style: none;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #ffd700;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover {
+            color: #ffd700;
+            background: rgba(255,215,0,0.1);
+        }
+
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        /* 模块容器 */
+        .module-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .module {
+            margin-bottom: 60px;
+        }
+
+        .module-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 4px solid #ffd700;
+            color: #ffd700;
+        }
+
+        /* 内容卡片网格 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .video-card {
+            background: rgba(0,0,0,0.6);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,215,0,0.2);
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(255,215,0,0.2);
+            border-color: #ffd700;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-info {
+            padding: 15px;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-desc {
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            background: rgba(255,215,0,0.2);
+            color: #ffd700;
+            border-radius: 4px;
+            font-size: 0.7rem;
+        }
+
+        /* 底部样式 */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255,215,0,0.2);
+            color: #999;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+            .nav-menu {
+                gap: 20px;
+            }
+            .nav-link {
+                font-size: 1rem;
+                padding: 8px 15px;
+            }
+            .module-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景层 -->
+    <div class="bg-container"></div>
+    <div class="golden-overlay"></div>
+
+    <!-- 头部区域 -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">伟哥影视 <span>极致CG视觉体验</span></h1>
+            <!-- 导航菜单 -->
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#anime" class="nav-link"><i class="fas fa-dragon"></i> 动漫</a></li>
+                <li class="nav-item"><a href="#movie" class="nav-link"><i class="fas fa-film"></i> 电影</a></li>
+                <li class="nav-item"><a href="#shortplay" class="nav-link"><i class="fas fa-play-circle"></i> 短剧</a></li>
+                <li class="nav-item"><a href="#tvplay" class="nav-link"><i class="fas fa-tv"></i> 电视剧</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- 核心模块区域 -->
+    <main class="module-container">
+        <!-- 动漫模块 -->
+        <section id="anime" class="module">
+            <h2 class="module-title">动漫专区</h2>
+            <div class="card-grid">
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/1/220/180" alt="动漫封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">哪吒之魔童闹海</h3>
+                        <p class="card-desc">国产CG巅峰之作，哪吒归来，大闹东海龙宫</p>
+                        <span class="card-tag">国漫</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/2/220/180" alt="动漫封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">斗罗大陆</h3>
+                        <p class="card-desc">唐三成神之路，极致3D建模，视觉盛宴</p>
+                        <span class="card-tag">玄幻</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/3/220/180" alt="动漫封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">凡人修仙传</h3>
+                        <p class="card-desc">韩立的修仙之旅，写实CG风格，细节拉满</p>
+                        <span class="card-tag">修仙</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/4/220/180" alt="动漫封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">西行纪</h3>
+                        <p class="card-desc">颠覆传统西游，暗黑CG风格，龙族特效炸裂</p>
+                        <span class="card-tag">冒险</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 电影模块 -->
+        <section id="movie" class="module">
+            <h2 class="module-title">电影专区</h2>
+            <div class="card-grid">
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/5/220/180" alt="电影封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">流浪地球2</h3>
+                        <p class="card-desc">国产科幻天花板，CG特效比肩好莱坞</p>
+                        <span class="card-tag">科幻</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/6/220/180" alt="电影封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">满江红</h3>
+                        <p class="card-desc">国风美学巅峰，鎏金场景视觉冲击</p>
+                        <span class="card-tag">古装</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/7/220/180" alt="电影封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">长津湖</h3>
+                        <p class="card-desc">战争场面CG还原，真实感拉满</p>
+                        <span class="card-tag">战争</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/8/220/180" alt="电影封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">封神第一部</h3>
+                        <p class="card-desc">东方神话CG重构，龙族特效震撼</p>
+                        <span class="card-tag">神话</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 短剧模块 -->
+        <section id="shortplay" class="module">
+            <h2 class="module-title">短剧专区</h2>
+            <div class="card-grid">
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/9/220/180" alt="短剧封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">龙王归来</h3>
+                        <p class="card-desc">都市玄幻短剧，鎏金龙王特效吸睛</p>
+                        <span class="card-tag">玄幻</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/10/220/180" alt="短剧封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">赘婿无双</h3>
+                        <p class="card-desc">国风短剧，场景CG渲染，细节精致</p>
+                        <span class="card-tag">都市</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/11/220/180" alt="短剧封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">仙尊下山</h3>
+                        <p class="card-desc">修仙短剧，CG打斗场面行云流水</p>
+                        <span class="card-tag">修仙</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/12/220/180" alt="短剧封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">贵妃在上</h3>
+                        <p class="card-desc">古装短剧，鎏金宫廷场景，视觉奢华</p>
+                        <span class="card-tag">古装</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 电视剧模块 -->
+        <section id="tvplay" class="module">
+            <h2 class="module-title">电视剧专区</h2>
+            <div class="card-grid">
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/13/220/180" alt="电视剧封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">庆余年2</h3>
+                        <p class="card-desc">古装权谋剧，CG场景还原古代都城风貌</p>
+                        <span class="card-tag">权谋</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/14/220/180" alt="电视剧封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">琅琊榜</h3>
+                        <p class="card-desc">国风权谋经典，CG后期优化画面质感</p>
+                        <span class="card-tag">古装</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/15/220/180" alt="电视剧封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">三体</h3>
+                        <p class="card-desc">科幻巨作，CG还原三体世界宇宙场景</p>
+                        <span class="card-tag">科幻</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/16/220/180" alt="电视剧封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">雪中悍刀行</h3>
+                        <p class="card-desc">武侠剧，CG打造江湖打斗特效</p>
+                        <span class="card-tag">武侠</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 底部区域 -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 伟哥影视 - 鎏金CG视觉 · 中国龙主题视频平台</p>
+            <p>本网站仅用于展示，请勿用于商业用途</p>
+        </div>
+    </footer>
+
+    <!-- 引入JS库 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 平滑滚动效果
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
