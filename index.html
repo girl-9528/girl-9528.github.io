@@ -1,87 +1,426 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>龙影阁</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伟哥影视 - 极致CG视觉体验</title>
+    <!-- 引入外部样式库 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
+        /* 全局样式 */
+        * {
             margin: 0;
-            font-family: Arial;
-            background: black;
-            color: gold;
-            text-align: center;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* 背景视频 */
-        video {
+        body {
+            font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* 背景层 - 鎏金中国龙CG风格 */
+        .bg-container {
             position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: -1;
-            opacity: 0.5;
+            background: 
+                linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)),
+                url('https://picsum.photos/id/1076/1920/1080') center/cover no-repeat; /* 龙纹背景图（替换为更贴合的龙图效果更佳） */
+            background-blend-mode: overlay;
         }
 
-        h1 {
-            margin-top: 50px;
-            font-size: 50px;
+        /* 鎏金纹理叠加 */
+        .golden-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 30%, rgba(255,215,0,0.15), transparent 70%);
+            pointer-events: none;
         }
 
-        .movies {
+        /* 头部导航 */
+        .header {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,215,0,0.3);
+            position: relative;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: 800;
+            text-align: center;
+            background: linear-gradient(90deg, #ffd700, #f0c808, #e0b800);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(255,215,0,0.5);
+            letter-spacing: 5px;
+        }
+
+        .logo span {
+            font-size: 1.2rem;
+            margin-left: 10px;
+            opacity: 0.8;
+        }
+
+        /* 导航菜单 */
+        .nav-menu {
             display: flex;
             justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
             flex-wrap: wrap;
         }
 
-        .card {
-            width: 200px;
-            margin: 20px;
-            background: rgba(0,0,0,0.7);
-            border: 1px solid gold;
+        .nav-item {
+            list-style: none;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: #ffd700;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover {
+            color: #ffd700;
+            background: rgba(255,215,0,0.1);
+        }
+
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        /* 模块容器 */
+        .module-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .module {
+            margin-bottom: 60px;
+        }
+
+        .module-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 4px solid #ffd700;
+            color: #ffd700;
+        }
+
+        /* 内容卡片网格 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .video-card {
+            background: rgba(0,0,0,0.6);
             border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,215,0,0.2);
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(255,215,0,0.2);
+            border-color: #ffd700;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-info {
+            padding: 15px;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-desc {
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-bottom: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
             overflow: hidden;
         }
 
-        .card img {
-            width: 100%;
+        .card-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            background: rgba(255,215,0,0.2);
+            color: #ffd700;
+            border-radius: 4px;
+            font-size: 0.7rem;
         }
 
-        button {
-            width: 100%;
-            padding: 10px;
-            background: gold;
-            border: none;
-            cursor: pointer;
+        /* 底部样式 */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255,215,0,0.2);
+            color: #999;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+            .nav-menu {
+                gap: 20px;
+            }
+            .nav-link {
+                font-size: 1rem;
+                padding: 8px 15px;
+            }
+            .module-title {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- 背景层 -->
+    <div class="bg-container"></div>
+    <div class="golden-overlay"></div>
 
-<video autoplay muted loop>
-    <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
-</video>
+    <!-- 头部区域 -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">伟哥影视 <span>极致CG视觉体验</span></h1>
+            <!-- 导航菜单 -->
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#anime" class="nav-link"><i class="fas fa-dragon"></i> 动漫</a></li>
+                <li class="nav-item"><a href="#movie" class="nav-link"><i class="fas fa-film"></i> 电影</a></li>
+                <li class="nav-item"><a href="#shortplay" class="nav-link"><i class="fas fa-play-circle"></i> 短剧</a></li>
+                <li class="nav-item"><a href="#tvplay" class="nav-link"><i class="fas fa-tv"></i> 电视剧</a></li>
+            </ul>
+        </div>
+    </header>
 
-<h1>🐉 龙影阁 🎬</h1>
+    <!-- 核心模块区域 -->
+    <main class="module-container">
+        <!-- 动漫模块 -->
+        <section id="anime" class="module">
+            <h2 class="module-title">动漫专区</h2>
+            <div class="card-grid">
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/1/220/180" alt="动漫封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">哪吒之魔童闹海</h3>
+                        <p class="card-desc">国产CG巅峰之作，哪吒归来，大闹东海龙宫</p>
+                        <span class="card-tag">国漫</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/2/220/180" alt="动漫封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">斗罗大陆</h3>
+                        <p class="card-desc">唐三成神之路，极致3D建模，视觉盛宴</p>
+                        <span class="card-tag">玄幻</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/3/220/180" alt="动漫封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">凡人修仙传</h3>
+                        <p class="card-desc">韩立的修仙之旅，写实CG风格，细节拉满</p>
+                        <span class="card-tag">修仙</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/4/220/180" alt="动漫封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">西行纪</h3>
+                        <p class="card-desc">颠覆传统西游，暗黑CG风格，龙族特效炸裂</p>
+                        <span class="card-tag">冒险</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<div class="movies">
+        <!-- 电影模块 -->
+        <section id="movie" class="module">
+            <h2 class="module-title">电影专区</h2>
+            <div class="card-grid">
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/5/220/180" alt="电影封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">流浪地球2</h3>
+                        <p class="card-desc">国产科幻天花板，CG特效比肩好莱坞</p>
+                        <span class="card-tag">科幻</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/6/220/180" alt="电影封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">满江红</h3>
+                        <p class="card-desc">国风美学巅峰，鎏金场景视觉冲击</p>
+                        <span class="card-tag">古装</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/7/220/180" alt="电影封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">长津湖</h3>
+                        <p class="card-desc">战争场面CG还原，真实感拉满</p>
+                        <span class="card-tag">战争</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/8/220/180" alt="电影封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">封神第一部</h3>
+                        <p class="card-desc">东方神话CG重构，龙族特效震撼</p>
+                        <span class="card-tag">神话</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <div class="card">
-        <img src="https://picsum.photos/200/300?1">
-        <button onclick="play()">播放</button>
-    </div>
+        <!-- 短剧模块 -->
+        <section id="shortplay" class="module">
+            <h2 class="module-title">短剧专区</h2>
+            <div class="card-grid">
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/9/220/180" alt="短剧封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">龙王归来</h3>
+                        <p class="card-desc">都市玄幻短剧，鎏金龙王特效吸睛</p>
+                        <span class="card-tag">玄幻</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/10/220/180" alt="短剧封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">赘婿无双</h3>
+                        <p class="card-desc">国风短剧，场景CG渲染，细节精致</p>
+                        <span class="card-tag">都市</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/11/220/180" alt="短剧封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">仙尊下山</h3>
+                        <p class="card-desc">修仙短剧，CG打斗场面行云流水</p>
+                        <span class="card-tag">修仙</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/12/220/180" alt="短剧封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">贵妃在上</h3>
+                        <p class="card-desc">古装短剧，鎏金宫廷场景，视觉奢华</p>
+                        <span class="card-tag">古装</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <div class="card">
-        <img src="https://picsum.photos/200/300?2">
-        <button onclick="play()">播放</button>
-    </div>
+        <!-- 电视剧模块 -->
+        <section id="tvplay" class="module">
+            <h2 class="module-title">电视剧专区</h2>
+            <div class="card-grid">
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/13/220/180" alt="电视剧封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">庆余年2</h3>
+                        <p class="card-desc">古装权谋剧，CG场景还原古代都城风貌</p>
+                        <span class="card-tag">权谋</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/14/220/180" alt="电视剧封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">琅琊榜</h3>
+                        <p class="card-desc">国风权谋经典，CG后期优化画面质感</p>
+                        <span class="card-tag">古装</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/15/220/180" alt="电视剧封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">三体</h3>
+                        <p class="card-desc">科幻巨作，CG还原三体世界宇宙场景</p>
+                        <span class="card-tag">科幻</span>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <img src="https://picsum.photos/id/16/220/180" alt="电视剧封面" class="card-img">
+                    <div class="card-info">
+                        <h3 class="card-title">雪中悍刀行</h3>
+                        <p class="card-desc">武侠剧，CG打造江湖打斗特效</p>
+                        <span class="card-tag">武侠</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-</div>
+    <!-- 底部区域 -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 伟哥影视 - 鎏金CG视觉 · 中国龙主题视频平台</p>
+            <p>本网站仅用于展示，请勿用于商业用途</p>
+        </div>
+    </footer>
 
-<script>
-function play(){
-    alert("这里以后可以接你的服务器电影 😏");
-}
-</script>
-
+    <!-- 引入JS库 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 平滑滚动效果
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
