@@ -1,47 +1,125 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>主人的网站</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial;
-            background: url('https://picsum.photos/1600/900') no-repeat center center/cover;
-            color: white;
-            text-align: center;
-        }
-        .box {
-            margin-top: 150px;
-            background: rgba(0,0,0,0.6);
-            padding: 40px;
-            border-radius: 20px;
-            display: inline-block;
-        }
-        h1 {
-            color: #ff4d4d;
-        }
-        button {
-            padding: 10px 20px;
-            margin-top: 20px;
-            border: none;
-            background: red;
-            color: white;
-            font-size: 16px;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: darkred;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>主人的影视殿堂</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: "Microsoft YaHei", sans-serif;
+    background: black;
+    color: gold;
+    overflow-x: hidden;
+}
+
+/* 龙背景 */
+body::before {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1608889175112-7a1d0a5e8b2f?auto=format&fit=crop&w=1500&q=80') no-repeat center/cover;
+    opacity: 0.25;
+    animation: moveBg 20s linear infinite;
+    z-index: -1;
+}
+
+@keyframes moveBg {
+    0% {transform: scale(1) translateY(0);}
+    50% {transform: scale(1.1) translateY(-20px);}
+    100% {transform: scale(1) translateY(0);}
+}
+
+header {
+    text-align: center;
+    padding: 40px;
+    font-size: 36px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-shadow: 0 0 20px gold;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 40px;
+}
+
+/* 电影卡片 */
+.card {
+    width: 220px;
+    background: rgba(0,0,0,0.7);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 20px gold;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 40px gold;
+}
+
+.card img {
+    width: 100%;
+}
+
+.card h3 {
+    padding: 10px;
+}
+
+/* 按钮 */
+button {
+    background: gold;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: orange;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    opacity: 0.6;
+}
+</style>
 </head>
+
 <body>
 
-<div class="box">
-    <h1>欢迎来到主人的网站 😎</h1>
-    <p>这里是我的地盘</p>
-    <button onclick="alert('你点我干嘛 😏')">点我试试</button>
+<header>🐉 主人的影视殿堂 🐉</header>
+
+<div class="container">
+
+<div class="card">
+<img src="https://picsum.photos/300/400?random=1">
+<h3>神秘之影</h3>
+<button onclick="alert('播放功能以后加 😏')">播放</button>
 </div>
+
+<div class="card">
+<img src="https://picsum.photos/300/400?random=2">
+<h3>龙之崛起</h3>
+<button onclick="alert('播放功能以后加 😏')">播放</button>
+</div>
+
+<div class="card">
+<img src="https://picsum.photos/300/400?random=3">
+<h3>暗夜猎手</h3>
+<button onclick="alert('播放功能以后加 😏')">播放</button>
+</div>
+
+</div>
+
+<footer>© 主人的专属影院</footer>
 
 </body>
 </html>
